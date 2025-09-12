@@ -5,8 +5,8 @@
     <classes>
       <class name="testPackage.LoginTest">
         <methods>
-          <include name="clickandaddmore"/>
           <include name="tearDown"/>
+          <include name="verifyLogin"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- testPackage.LoginTest -->

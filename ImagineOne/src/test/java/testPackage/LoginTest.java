@@ -31,6 +31,7 @@ public class LoginTest extends BaseClass{
 
         String uniqueClientName = "Client" + randomNum;
         String uniqueShortName = "CL" + randomNum;
+        
     
         HomePage home=new HomePage(driver);
     
@@ -39,10 +40,20 @@ public class LoginTest extends BaseClass{
     	 home.hoveraction(driver);
     	 home.clickclient();
     	 home.clickaddclient(driver);
+    	 
+    	 
     	 home.addclientname(uniqueClientName);
     	 home.addshortname(uniqueShortName);
-    	// home.copilot(driver);
-    	// home.active(driver);
+    	 home.copilot(driver);
+    	 home.active(driver);
+    	 home.clientcontactname("akshaytest");
+    	 home.clientemailsend("test@qa.com");
+    	 home.clientcphonesend("2012220000");
+    	 home.imaginecnamesend("iclient");
+    	 home.imaginecemailsend("testimagine@test.com");
+    	 home.imaginecphonesend("2012220101");
+    	 home.subscriptionfee("2000");
+    	 
     	 home.clicksave(driver);
     	 
     	String successMsg = home.getSuccessMessage();
@@ -85,9 +96,15 @@ public class LoginTest extends BaseClass{
 	            home.addshortname(uniqueShortNamemore);
 	            
 	            
-		    	// home.copilot(driver);
-		    	// home.active(driver);
-		    	 
+		    	home.copilot(driver);
+		    	home.active(driver);
+		    	home.clientcontactname("akshaytest");
+		    	home.clientemailsend("test@qa.com");
+		    	home.clientcphonesend("2012220000");
+		    	home.imaginecnamesend("iclient");
+		    	home.imaginecemailsend("testimagine@test.com");
+		    	home.imaginecphonesend("2012220101");
+		    	home.subscriptionfee("2000");
 
 	            if (i < 3) {
 	                // For first 2, click Save & Add More (stay on form)
