@@ -6,7 +6,7 @@
       <class name="testPackage.LoginTest">
         <methods>
           <include name="tearDown"/>
-          <include name="verifyLogin"/>
+          <include name="filteractive"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- testPackage.LoginTest -->

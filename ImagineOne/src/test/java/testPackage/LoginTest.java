@@ -1,9 +1,9 @@
 package testPackage;
 
+import java.util.List;
 import java.util.Random;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import basePackage.BaseClass;
@@ -15,7 +15,7 @@ public class LoginTest extends BaseClass{
 	
 
 
-	@Test(priority=1)
+	@Test
     public void verifyLogin() throws InterruptedException {
         LoginPage login = new LoginPage(driver);
         
@@ -63,7 +63,7 @@ public class LoginTest extends BaseClass{
           }
 
 	
-	@Test(priority=2)
+	@Test
 	 public void clickandaddmore() throws InterruptedException {
 	        LoginPage login = new LoginPage(driver);
 	        
@@ -123,4 +123,138 @@ public class LoginTest extends BaseClass{
 	                 "Expected success message not found. Actual: " + successMsg);
 	     }
 }
+	
+	@Test
+	public void shortnamevalidation() throws InterruptedException {
+		
+		
+		LoginPage login = new LoginPage(driver);
+	        
+	        login.enterId("alavate");
+	        login.enterPassword("Testing@123");
+	        login.clickEnter();
+		
+	        
+
+	        HomePage home=new HomePage(driver);
+	        
+	        home.hoveraction(driver);
+	        home.clickclient();
+	    	home.clickaddclient(driver);
+	    	
+	    	Random r3 = new Random();
+	        int randomNum = r3.nextInt(10000);  
+	        
+
+	        String uniqueClientName = "Client" + randomNum;
+	        String uniqueShortName = "CLT" + randomNum;
+	        
+	    	 home.addclientname(uniqueClientName+"testing12345");
+	    	 home.addshortname(uniqueShortName+"testing12345");
+	    	 home.clicksave(driver);
+
+	    	 
+	         // Assert the error messages
+	         
+	        String shortnameerror= home.getShortnameerrorMessage();
+	        
+	        Assert.assertTrue(shortnameerror.contains("Short Name must not exceed 11 characters."),"Expected success message not found. Actual: " + shortnameerror);
+
+
+	      }
+	
+	@Test
+	public void resetoption() throws InterruptedException {
+		
+		LoginPage login = new LoginPage(driver);
+        
+        login.enterId("alavate");
+        login.enterPassword("Testing@123");
+        login.clickEnter();
+        
+        HomePage home=new HomePage(driver);
+        
+    	
+    	
+	   	 home.hoveraction(driver);
+	   	 home.clickclient();
+	   	 home.clickaddclient(driver);
+	   	 
+	   	 
+	   	 home.addclientname("UniqueclientName");
+	   	 home.addshortname("uniqueSh");
+	   	 home.copilot(driver);
+	   	 home.active(driver);
+	   	 home.clientcontactname("akshaytest");
+	   	 home.clientemailsend("test@qa.com");
+	   	 home.clientcphonesend("2012220000");
+	   	 home.imaginecnamesend("iclient");
+	   	 home.imaginecemailsend("testimagine@test.com");
+	   	 home.imaginecphonesend("2012220101");
+	   	 home.subscriptionfee("2000");
+	   	 
+	   	 Thread.sleep(3000);
+	   	 
+	   	 home.clickreset(driver);
+	   	 home.clicksave(driver);
+	   	 
+	   	 String reset=home.getReseterrorMessage();
+	   	 Assert.assertEquals(reset,"Client Name cannot be null","Error msg do not match");
 	}
+	
+	@Test(enabled=false)
+	public void searchclientname() throws InterruptedException {
+		
+		LoginPage login = new LoginPage(driver);
+        
+        login.enterId("alavate");
+        login.enterPassword("Testing@123");
+        login.clickEnter();
+        
+        HomePage home=new HomePage(driver);
+       
+	   	home.hoveraction(driver);
+	   	home.clickclient();
+	   	
+	   	
+	    List<String> results = home.searchfunction();
+
+	    // Print them
+	    if (results.isEmpty()) {
+	        System.out.println("No clients found for search.");
+	    } else {
+	        System.out.println("Clients found:");
+	        for (String name : results) {
+	            System.out.println(" - " + name);
+	        }
+	    }
+	}
+	
+
+	@Test
+	public void filteractive() throws InterruptedException {
+		
+LoginPage login = new LoginPage(driver);
+        
+        login.enterId("alavate");
+        login.enterPassword("Testing@123");
+        login.clickEnter();
+        
+        HomePage home=new HomePage(driver);
+       
+	   	home.hoveraction(driver);
+	   	home.clickclient();
+	   	
+	   	home.filterCoPilotActive();
+	   	List<String> activerecords = home.getAllCoPilotStatuses();
+	   	
+	   	if (activerecords.isEmpty()) {
+	        System.out.println("No active records found for search.");
+	    } else {
+	        System.out.println("Clients found:");
+	        for (String ac : activerecords) {
+	            System.out.println(" - " + ac);
+	        }
+	}
+	}
+}

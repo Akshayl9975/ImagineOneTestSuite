@@ -1,6 +1,8 @@
 package pomPackage;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,120 +14,135 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
-	
+
 	public WebDriver driver;
 
 	@FindBy(xpath="//div[@id=\"provisioning-hovered\"]") private WebElement hover;
-	
+
 	@FindBy(xpath="//div//child::span[text()='Client Provisioning']") private WebElement clientprov;
-	
+
 	@FindBy(xpath="//button//child::span[@class=\"mat-button-wrapper\"]//span[text()=' add ']") private WebElement addclient;
-	
+
 	@FindBy(xpath="//input[@data-placeholder=\"Client Name\"]") private WebElement clientname;
-	
+
 	@FindBy(xpath="//input[@data-placeholder=\"Short Name\"]") private WebElement shortname;
-	
+
 	@FindBy(xpath="//span[text()=\"Co-Pilot Enabled\"]") private WebElement Copilotbox;
-	
+
 	@FindBy(xpath="//*[@id='mat-checkbox-2']") private WebElement activebox;
-	
+
 	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"clientContactName\"]")private WebElement clientcname;
-	
+
 	@FindBy(xpath="//input[@data-placeholder=\"Client Email\"]")private WebElement clientemail;
-	
+
 	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"clientContactPhone\"]")private WebElement clientcphone;
-	
+
 	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"imagineContactName\"]")private WebElement imaginecname;
-	
+
 	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"imagineContactEmail\"]")private WebElement imaginecemail;
-	
+
 	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"imagineContactPhone\"]")private WebElement imaginecphone;
-	
+
 	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"subscriptionFee\"]")private WebElement sfees;
-	
+
 	@FindBy(xpath="//button//child::span[text()=' exit_to_app ']") private WebElement saveexit;
-	
+
 	@FindBy(xpath="//button//child::span[text()='Save & Add More']") private WebElement saveandadd;
-	
+
 	@FindBy(xpath="//div[@id=\"toast-container\"]//child::div[@aria-label=\"Client created Successfully\"]") private WebElement successmsg;
 
+	@FindBy(xpath="//div//mat-error//span[text()='Short Name must not exceed 11 characters.']") private WebElement errormsg;
 
-	
-	
+	@FindBy(xpath="//div[@class=\"canCross\"]//span[text()='Reset']")private WebElement resetbutton;
 
-	
+	@FindBy(xpath="//div[@id=\"toast-container\"]//div[text()=' Client Name cannot be null ']")private WebElement reseterrormsg;
+
+	@FindBy(xpath="//input[@role=\"combobox\"]")private WebElement searchclient;
+
+	@FindBy(xpath="//div[@role=\"listbox\"]//mat-option//child::span")private List<WebElement> searchlist;
+
+	@FindBy(xpath="//th[contains(@class,\"coPilotEnabled\")]//child::span[text()='All']")private WebElement clickall;
+
+
+	@FindBy(xpath="//div[@role=\"listbox\"]//child::mat-option//span[text()=' Active ']")private WebElement activeclick;
+
+	@FindBy(xpath="//tbody[@role=\"rowgroup\"]//tr[@role=\"row\"]//td[contains(@class,\"mat-cell cdk-cell cdk-column-coPilotEnabled \")]//span[text()='Active']")private List<WebElement> activelist;
+
+
 	public HomePage(WebDriver driver)
 	{
-	    this.driver = driver;  
+		this.driver = driver;  
 
 		PageFactory.initElements(driver,this);
 	}
-	
-	
+
+
 	public void hoveraction(WebDriver driver) {
-		
-		
+
+
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(hover));
-		
-		
+
+
 		Actions actions = new Actions(driver);
- 
+
 		actions.moveToElement(hover).build().perform();
 	}
 
-	public void clickclient() {
-		
+	public void clickclient() throws InterruptedException {
+
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.visibilityOf(clientprov));
-		
+
 		clientprov.click();
 		
+		Thread.sleep(3000);
+
 	}
 
 	public void clickaddclient(WebDriver driver) throws InterruptedException {
-		
-	     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-		 
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
 		// wait for overlay to disappear
-		
+
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.ngx-overlay.foreground-closing")));
- 
+
 		// wait for the button to be clickable
 		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(15));
-		
+
 		wait1.until(ExpectedConditions.elementToBeClickable(addclient)); 
-		
+
 		Thread.sleep(7000);
-		
+
 		addclient.click();
 	}
-	
-	
+
+
 	public void addclientname(String cname) {
-		
+
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOf(clientname));
-		
+
 		clientname.clear();
 
-		
+
 		clientname.sendKeys(cname);
 	}
 
-	
+
 	public void addshortname(String sname) {
-		
+
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(shortname));
-		
-	    shortname.clear();
+
+		shortname.clear();
 
 		shortname.sendKeys(sname);
 	}
-	
+
 	public void copilot(WebDriver driver) {
-		
+
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".ngx-overlay.loading-foreground")));
 
@@ -134,142 +151,260 @@ public class HomePage {
 
 		Copilotbox.click();
 	}
-	
+
 	public void active(WebDriver driver) {
-		
+
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".ngx-overlay.loading-foreground")));
 
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait12.until(ExpectedConditions.elementToBeClickable(activebox));
-		
+
 		activebox.click();
 	}
-	
+
 	public void clientcontactname (String clcname){
-		
+
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-		 
-			// wait for overlay to disappear
-			
+
+		// wait for overlay to disappear
+
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.ngx-overlay.foreground-closing")));
-	 
-			
+
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait12.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"clientContactName\"]")));
-		
+
 		clientcname.clear();
 
 		clientcname.sendKeys(clcname);
-		
+
 	}
-	
-	
+
+
 	public void clientemailsend(String clemail) {
-		
-		
+
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait12.until(ExpectedConditions.visibilityOf(clientemail));
-		
+
 		clientemail.clear();
-		
+
 		clientemail.sendKeys(clemail);
-		
-		
+
+
 	}
-	
-	
+
+
 	public void clientcphonesend(String clcphone) {
-		
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait12.until(ExpectedConditions.visibilityOf(clientcphone));
-		
+
 		clientcphone.clear();
-		
+
 		clientcphone.sendKeys(clcphone);
 	}
-	
-	
+
+
 	public void imaginecnamesend(String icname) {
-		
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait12.until(ExpectedConditions.visibilityOf(imaginecname));
-		
+
 		imaginecname.clear();
-		
+
 		imaginecname.sendKeys(icname);
-		
-		
+
+
 	}
-	
-	
-	
-   public void imaginecemailsend(String icemail) {
-		
+
+
+
+	public void imaginecemailsend(String icemail) {
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait12.until(ExpectedConditions.visibilityOf(imaginecemail));
-		
+
 		imaginecemail.clear();
-		
+
 		imaginecemail.sendKeys(icemail);
 	}
-	
-   
-   public void imaginecphonesend(String icphone) {
-		
+
+
+	public void imaginecphonesend(String icphone) {
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait12.until(ExpectedConditions.visibilityOf(imaginecphone));
-		
+
 		imaginecphone.clear();
-		
+
 		imaginecphone.sendKeys(icphone);
 	}
-   
-   
-   public void subscriptionfee(String subfee) {
-		
+
+
+	public void subscriptionfee(String subfee) {
+
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait12.until(ExpectedConditions.visibilityOf(sfees));
-		
+
 		sfees.clear();
-		
+
 		sfees.sendKeys(subfee);
 	}
-   
-   
+
+
 	public void clicksave(WebDriver driver) throws InterruptedException {
-		
+
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.elementToBeClickable(saveexit));
-		
+
 
 		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(15));
 		wait2.until(ExpectedConditions.invisibilityOfElementLocated( By.cssSelector("div.ngx-overlay")));
-		
+
 		saveexit.click();
 		Thread.sleep(5000);
 	}
-	
-	
+
+
 	public void clickaddmore(WebDriver driver) throws InterruptedException {
-		
+
 
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(saveandadd));
-		
+
 		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(15));
 		wait2.until(ExpectedConditions.invisibilityOfElementLocated( By.cssSelector("div.ngx-overlay")));
-		
+
 		saveandadd.click();
 		Thread.sleep(5000);
 	}
-	
-	 public String getSuccessMessage() {
-	       
-		 
+
+	public void clickreset(WebDriver driver) throws InterruptedException {
+
+
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(resetbutton));
+
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(15));
+		wait2.until(ExpectedConditions.invisibilityOfElementLocated( By.cssSelector("div.ngx-overlay")));
+
+		resetbutton.click();
+		Thread.sleep(5000);
+
+
+	}
+
+	public String getSuccessMessage() {
+
+
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));
 		WebElement toast=wait.until(ExpectedConditions.visibilityOf(successmsg));
+
+		return toast.getText();
+	}
+
+
+
+	public String getShortnameerrorMessage() {
+
+
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));
+		WebElement shorterror=wait.until(ExpectedConditions.visibilityOf(errormsg));
+
+		return shorterror.getText();
+	}
+
+
+	public String getReseterrorMessage() {
+
+
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));
+		WebElement resetbuttonerror=wait.until(ExpectedConditions.visibilityOf(reseterrormsg));
+
+		return resetbuttonerror.getText();
+	}
+
+	public List<String> searchfunction() {
+
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));
+		wait.until(ExpectedConditions.visibilityOf(searchclient));
+
+		searchclient.clear();
+
+		searchclient.sendKeys("test");
+
+
+		WebDriverWait wait1=new WebDriverWait(driver,Duration.ofSeconds(20));
+		wait1.until(ExpectedConditions.visibilityOfAllElements(searchlist));
+
+		List<String> names = new ArrayList<>();
+
+		if (searchlist.isEmpty()) {
+			System.out.println(" No clients found in search result.");
+			return names; // empty list
+		}
+
+		for (WebElement el : searchlist) {
+			String text = el.getText().trim();
+			if (!text.isEmpty()) {
+				names.add(text);
+			}
+		}
+		return names;
+	}
+
+
+	public void filterCoPilotActive() {
+
+
+		WebDriverWait wait4= new WebDriverWait(driver, Duration.ofSeconds(20));
+
+		// wait until overlay disappears
+		wait4.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.cssSelector("div.ngx-overlay.loading-foreground")));
+
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait2.until(ExpectedConditions.visibilityOf(clickall));
+
+
+		clickall.click();
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+		// wait until overlay disappears
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.cssSelector("div.ngx-overlay.loading-foreground")));
+
+		WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait3.until(ExpectedConditions.visibilityOf(activeclick));
+
+		activeclick.click();
+
+	}
+
+	// Get list of all CoPilot statuses
+
+	public List<String> getAllCoPilotStatuses() {
+
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait1.until(ExpectedConditions.visibilityOfAllElements(activelist));
 		
-		  return toast.getText();
-	    }
+		
+		List<String> statuses = new ArrayList<>();
+		for (WebElement el : activelist) {
+			String text = el.getText().trim();
+			if (!text.isEmpty()) {
+				statuses.add(text);
+			}
+		}
+		return statuses;
+
+
+
+
+	}
 }
+
+
