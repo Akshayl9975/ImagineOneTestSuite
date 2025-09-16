@@ -249,7 +249,7 @@ LoginPage login = new LoginPage(driver);
 	   	List<String> activerecords = home.getAllCoPilotStatuses();
 	   	
 	   	if (activerecords.isEmpty()) {
-	        System.out.println("No active records found for search.");
+	        System.out.println("No Result to Display");
 	    } else {
 	        System.out.println("Clients found:");
 	        for (String ac : activerecords) {
