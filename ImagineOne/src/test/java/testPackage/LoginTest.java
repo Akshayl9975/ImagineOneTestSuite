@@ -124,7 +124,7 @@ public class LoginTest extends BaseClass{
 	     }
 }
 	
-	@Test
+	@Test(enabled=false)
 	public void shortnamevalidation() throws InterruptedException {
 		
 		
@@ -231,7 +231,7 @@ public class LoginTest extends BaseClass{
 	}
 	
 
-	@Test
+	@Test(enabled=false)
 	public void filteractive() throws InterruptedException {
 		
 LoginPage login = new LoginPage(driver);

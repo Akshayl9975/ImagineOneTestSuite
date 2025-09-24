@@ -31,19 +31,19 @@ public class HomePage {
 
 	@FindBy(xpath="//*[@id='mat-checkbox-2']") private WebElement activebox;
 
-	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"clientContactName\"]")private WebElement clientcname;
+	@FindBy(xpath="//input[@formcontrolname=\"clientContactName\"]")private WebElement clientcname;
 
 	@FindBy(xpath="//input[@data-placeholder=\"Client Email\"]")private WebElement clientemail;
 
-	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"clientContactPhone\"]")private WebElement clientcphone;
+	@FindBy(xpath="//input[@formcontrolname=\"clientContactPhone\"]")private WebElement clientcphone;
 
-	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"imagineContactName\"]")private WebElement imaginecname;
+	@FindBy(xpath="//input[@formcontrolname=\"imagineContactName\"]")private WebElement imaginecname;
 
-	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"imagineContactEmail\"]")private WebElement imaginecemail;
+	@FindBy(xpath="//input[@formcontrolname=\"imagineContactEmail\"]")private WebElement imaginecemail;
 
-	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"imagineContactPhone\"]")private WebElement imaginecphone;
+	@FindBy(xpath="//input[@formcontrolname=\"imagineContactPhone\"]")private WebElement imaginecphone;
 
-	@FindBy(xpath="//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"subscriptionFee\"]")private WebElement sfees;
+	@FindBy(xpath="//input[@formcontrolname=\"subscriptionFee\"]")private WebElement sfees;
 
 	@FindBy(xpath="//button//child::span[text()=' exit_to_app ']") private WebElement saveexit;
 
@@ -173,7 +173,7 @@ public class HomePage {
 
 
 		WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait12.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,\"mat-form-field-flex ng-tns-c70\")]//child::input[@formcontrolname=\"clientContactName\"]")));
+		wait12.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@formcontrolname=\"clientContactName\"]")));
 
 		clientcname.clear();
 
