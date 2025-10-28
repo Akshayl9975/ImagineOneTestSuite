@@ -202,7 +202,7 @@ public class LoginTest extends BaseClass{
 	   	 Assert.assertEquals(reset,"Client Name cannot be null","Error msg do not match");
 	}
 	
-	@Test(enabled=false)
+	@Test()
 	public void searchclientname() throws InterruptedException {
 		
 		LoginPage login = new LoginPage(driver);
@@ -221,7 +221,7 @@ public class LoginTest extends BaseClass{
 
 	    // Print them
 	    if (results.isEmpty()) {
-	        System.out.println("No clients found for search.");
+	        System.out.println("No Records To Display.");
 	    } else {
 	        System.out.println("Clients found:");
 	        for (String name : results) {

@@ -23,12 +23,12 @@
 </dependency>
 
   <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-<dependency>
-    <groupId>org.testng</groupId>
-    <artifactId>testng</artifactId>
-    <version>7.10.2</version>
-    <scope>test</scope>
-</dependency>
+      <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>7.10.2</version> <!-- latest stable -->
+          <scope>test</scope>
+      </dependency>
 
 
 
